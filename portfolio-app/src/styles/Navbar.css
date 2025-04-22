@@ -1,0 +1,51 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 0;
+    width: 100%;
+  }
+  
+  .navbar-container {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    padding: 0.5rem 2rem;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+  }
+  
+  .navbar-menu {
+    display: flex;
+    gap: 3rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar-menu li {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .navbar-menu li:hover {
+    color: white;
+  }
+  
+  .navbar-menu li.active {
+    color: white;
+  }
+  
+  .navbar-menu li.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background-color: white;
+  }
