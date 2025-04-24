@@ -14,19 +14,19 @@ const Navbar = () => {
               className={activeItem === 'home' ? 'active' : ''} 
               onClick={() => setActiveItem('home')}
             >
-              Home
+             <a> Home </a>
             </li>
             <li 
               className={activeItem === 'about' ? 'active' : ''} 
               onClick={() => setActiveItem('about')}
             >
-              About
+              <a> About </a>
             </li>
             <li 
               className={activeItem === 'projects' ? 'active' : ''} 
               onClick={() => setActiveItem('projects')}
             >
-              Projects
+              <a>Projects </a>
             </li>
           </ul>
         </div>
