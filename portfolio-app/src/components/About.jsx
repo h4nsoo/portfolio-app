@@ -92,8 +92,8 @@ const About = () => {
                 <div className="timeline-dot"></div>
                 <div className="timeline-content">
                   <h4>BSBA Degree - Majoring in IT</h4>
-                  <p className="timeline-location">Tunis Business Shcool</p>
-                  <p className="timeline-date">2020 - 2024</p>
+                  <p className="timeline-location">Tunis Business School</p>
+                  <p className="timeline-date">2023 - 2027</p>
                 </div>
               </div>
 
@@ -119,23 +119,21 @@ const About = () => {
               <div className="timeline-item">
                 <div className="timeline-dot"></div>
                 <div className="timeline-content">
-                  <h4>Tuni'act</h4>
-                  <p className="timeline-role">
-                    {" "}
-                    Communication Commitee Team Member
-                  </p>
-                  <p className="timeline-date">2023 - 2024</p>
-                  <p>Contributed as a Video Editor.</p>
+                  <h4>Merit TBS</h4>
+                  <p className="timeline-role">Marketing Team Member</p>
+                  <p className="timeline-date">2024 - 2025</p>
                 </div>
               </div>
 
               <div className="timeline-item">
                 <div className="timeline-dot"></div>
                 <div className="timeline-content">
-                  <h4>Merit TBS</h4>
-                  <p className="timeline-role">Marketing Team Member</p>
-                  <p className="timeline-date">2024 - 2025</p>
-                  <p>Contributed as a Video Editor.</p>
+                  <h4>Tuni'act TBS</h4>
+                  <p className="timeline-role">
+                    {" "}
+                    Communication Commitee Team Member
+                  </p>
+                  <p className="timeline-date">2023 - 2024</p>
                 </div>
               </div>
             </div>
@@ -144,11 +142,11 @@ const About = () => {
       </div>
 
       <div className="skills-section">
-        <h3>Tech Arsenal</h3>
+        <h2 className="tech-arsenal">Tech Arsenal</h2>
         <div className="skills-grid">
           {techStack.map((skill, index) => (
             <div key={index} className="skill-item">
-              <div className="balls">
+              <div className="skill-header">
                 <img src={skill.icon} alt={skill.name} />
                 <p className="skill-name">{skill.name}</p>
               </div>

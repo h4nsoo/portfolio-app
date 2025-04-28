@@ -87,7 +87,7 @@
   }
   
 
-  @media (max-height: 600px) {
+  @media (max-width: 768px) {
     .scroll-indicator {
       display: none;
     }
