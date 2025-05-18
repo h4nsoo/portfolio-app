@@ -5,7 +5,7 @@ import ScrollIndicator from './ScrollIndicator';
 
 const Hero = () => {
   return (
-    <div className="hero-section">
+    <div className="hero-section" id='hero'>
       <p className='location'>Based in Tunisia</p>
       
       <h1 className="hero-title">
