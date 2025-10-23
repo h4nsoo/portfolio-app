@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Projects.css";
+import OptimizedImage from "./OptimizedImage";
 import portfolioproject from "../assets/portfolioproject.png";
+import meritwebsite from "../assets/merit-website.png";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -13,6 +15,26 @@ const Projects = () => {
 
   const projects = [
     {
+      id: 3,
+      title: "ToonSah - Manga Website",
+      description:
+        "A manga reading website that fetches data from an external API and displays it in a user-friendly manner",
+      image: "https://placehold.co/600x400/4169e1/white?text=Manga+Website",
+      technologies: ["React", "CSS"],
+      category: "web",
+      github: "https://github.com/h4nsoo/manga-website",
+    },
+    {
+      id: 2,
+      title: "Merit TBS Website",
+      description: "A responsive student management application",
+      image: meritwebsite,
+      technologies: ["NextJS", "Typescript", "PostgreSQL", "CSS"],
+      category: "fullstack",
+      github: "https://github.com/h4nsoo/merit-club-website",
+      demo: "https://merit-club-tbs.vercel.app",
+    },
+    {
       id: 1,
       title: "Portfolio Website",
       description:
@@ -20,29 +42,8 @@ const Projects = () => {
       image: portfolioproject,
       technologies: ["React", "CSS"],
       category: "web",
-      github: "https://github.com/yourusername/portfolio",
+      github: "https://github.com/h4nsoo/portfolio-app",
       demo: "https://yourportfolio.com",
-    },
-    {
-      id: 2,
-      title: "ToonSah - Manga Website",
-      description:
-        "A manga reading website that fetches data from an external API and displays it in a user-friendly manner",
-      image: "https://placehold.co/600x400/4169e1/white?text=Manga+Website",
-      technologies: ["React", "Node.js", "MongoDB"],
-      category: "fullstack",
-      github: "https://github.com/h4nsoo/manga-website",
-    },
-    {
-      id: 3,
-      title: "Task Management App",
-      description:
-        "A responsive task management application with drag-and-drop functionality",
-      image: "https://placehold.co/600x400/4169e1/white?text=Task+Manager",
-      technologies: ["React", "Redux", "Firebase"],
-      category: "web",
-      github: "https://github.com/",
-      demo: "https://taskapp.com",
     },
   ];
 
@@ -93,10 +94,16 @@ const Projects = () => {
         </div>
 
         <div className="projects-grid">
-          {filteredProjects.slice(0, visibleProjects).map((project) => (
+          {filteredProjects.slice(0, visibleProjects).map((project, index) => (
             <div key={project.id} className="project-card">
               <div className="project-image">
-                <img src={project.image} alt={project.title} />
+                <OptimizedImage
+                  src={project.image}
+                  alt={project.title}
+                  width="600"
+                  height="400"
+                  loading={index < 2 ? "eager" : "lazy"}
+                />
                 <div className="project-links">
                   {project.github && (
                     <a
@@ -104,6 +111,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="project-link"
+                      aria-label={`View ${project.title} on GitHub`}
                     >
                       GitHub
                     </a>
@@ -114,6 +122,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="project-link"
+                      aria-label={`View ${project.title} demo`}
                     >
                       Demo
                     </a>

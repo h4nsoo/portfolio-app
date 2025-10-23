@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+/* Google Fonts now loaded in index.html for better performance */
 
 body {
   margin: 0;
@@ -31,4 +31,14 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+/* Loading spinner animation for lazy-loaded components */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

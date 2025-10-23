@@ -18,7 +18,7 @@
 
 .projects-wrapper {
   background: rgba(30, 34, 45, 0.85);
-  border: 1.5px solid rgba(65, 105, 225, 0.18); 
+  border: 1.5px solid rgba(65, 105, 225, 0.18);
   border-radius: 22px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
   box-sizing: border-box;
@@ -76,12 +76,15 @@
   display: flex;
   flex-direction: column;
   height: 420px; /* Fixed height for all cards */
+  content-visibility: auto;
+  contain-intrinsic-size: 420px;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  will-change: transform;
 }
 
 .project-image {
@@ -141,7 +144,7 @@
 }
 
 .project-info {
-  flex: 1 1 auto; 
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   padding: 1.2rem;

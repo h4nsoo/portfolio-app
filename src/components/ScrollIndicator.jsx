@@ -1,6 +1,4 @@
-
-import React from 'react';
-import '../styles/ScrollIndicator.css';
+import "../styles/ScrollIndicator.css";
 
 const ScrollIndicator = () => {
   return (
