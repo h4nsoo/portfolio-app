@@ -1,0 +1,84 @@
+.download-btn.button {
+  position: relative;
+  width: 190px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #365ed1; /* themed border (darker primary) */
+  background-color: #4169e1; /* site primary from Hero.css */
+  overflow: hidden;
+  text-decoration: none;
+  padding: 0;
+  border-radius: 4px; /* match site buttons */
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.download-btn.button,
+.download-btn .button__icon,
+.download-btn .button__text {
+  transition: all 0.3s;
+}
+
+.download-btn .button__text {
+  transform: translateX(22px);
+  color: #fff;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.download-btn .button__icon {
+  position: absolute;
+  transform: translateX(151px);
+  height: 100%;
+  width: 39px;
+  background-color: #365ed1; /* slightly darker primary for the icon panel */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-btn .svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+
+.download-btn:hover {
+  background: #5177e7; /* hover uses site hover primary */
+}
+
+.download-btn:hover .button__text {
+  color: transparent;
+}
+
+.download-btn:hover .button__icon {
+  width: 188px;
+  transform: translateX(0);
+}
+
+.download-btn:active .button__icon {
+  background-color: #2f58c1; /* active darker */
+}
+
+.download-btn:active {
+  border: 1px solid #2f58c1;
+}
+
+/* focus for keyboard accessibility */
+.download-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(65, 105, 225, 0.15);
+}
+
+/* small responsive tweak to fit theme spacing */
+@media (max-width: 420px) {
+  .download-btn.button {
+    width: 170px;
+    height: 38px;
+  }
+  .download-btn .button__icon {
+    transform: translateX(131px);
+  }
+}

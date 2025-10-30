@@ -1,0 +1,12 @@
+.starry-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at 60% 40%, #1a2250 0%, #0a1023 100%);
+  background-color: #0a1023;
+  /* darkened original bluish gradient */
+}

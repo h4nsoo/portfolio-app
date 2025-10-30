@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/About.css";
 import OptimizedImage from "./OptimizedImage";
+import SeeMoreButton from "./SeeMoreButton";
 
-import jsIcon from "../assets/javascript-icon.png";
+import tsIcon from "../assets/javascript-icon.png"; // Using JS icon as placeholder for TypeScript
 import reactIcon from "../assets/react-icon.png";
 import nodeIcon from "../assets/node-icon.png";
 import mongodbIcon from "../assets/mongodb-icon.png";
@@ -15,6 +16,7 @@ const About = () => {
   const [activeTab, setActiveTab] = useState("education");
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [showAllSkills, setShowAllSkills] = useState(false);
 
   const timelineData = {
     education: [
@@ -98,11 +100,11 @@ const About = () => {
     }
   };
 
-  const techStack = [
+  const mainSkills = [
     {
-      name: "JavaScript",
-      icon: jsIcon,
-      description: "Language of the web",
+      name: "TypeScript",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      description: "JavaScript but better",
     },
     {
       name: "React",
@@ -138,6 +140,49 @@ const About = () => {
       name: "Python",
       icon: pythonIcon,
       description: "A programming language",
+    },
+  ];
+
+  const extraSkills = [
+    {
+      name: "HTML5",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      description: "Markup language",
+    },
+    {
+      name: "CSS3",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      description: "Styling language",
+    },
+    {
+      name: "C",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+      description: "Low-level language",
+    },
+    {
+      name: "Java",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+      description: "OOP  language",
+    },
+    {
+      name: "Go",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+      description: "Highly efficient language",
+    },
+    {
+      name: "Express.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      description: "Node.js web framework",
+    },
+    {
+      name: "Docker",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+      description: "Containerization",
+    },
+    {
+      name: "Linux",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+      description: "Operating system",
     },
   ];
 
@@ -217,23 +262,31 @@ const About = () => {
       </div>
 
       <div className="skills-section">
-        <h2 className="tech-arsenal">Tech Arsenal</h2>
+        <div className="skills-header-row">
+          <h2 className="tech-arsenal">Tech Arsenal</h2>
+          <SeeMoreButton
+            expanded={showAllSkills}
+            onClick={() => setShowAllSkills((v) => !v)}
+          />
+        </div>
         <div className="skills-grid">
-          {techStack.map((skill, index) => (
-            <div key={index} className="skill-item">
-              <div className="skill-header">
-                <OptimizedImage
-                  src={skill.icon}
-                  alt={skill.name}
-                  width="32"
-                  height="32"
-                  loading={index < 4 ? "eager" : "lazy"}
-                />
-                <p className="skill-name">{skill.name}</p>
+          {(showAllSkills ? mainSkills.concat(extraSkills) : mainSkills).map(
+            (skill, index) => (
+              <div key={index} className="skill-item">
+                <div className="skill-header">
+                  <OptimizedImage
+                    src={skill.icon}
+                    alt={skill.name}
+                    width="32"
+                    height="32"
+                    loading={index < 4 ? "eager" : "lazy"}
+                  />
+                  <p className="skill-name">{skill.name}</p>
+                </div>
+                <p className="skill-description">{skill.description}</p>
               </div>
-              <p className="skill-description">{skill.description}</p>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
 

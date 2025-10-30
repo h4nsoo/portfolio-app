@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import "../styles/Hero.css";
 import Typewriter from "./Typewriter";
+import DownloadButton from "./DownloadButton";
 
 // Lazy load ScrollIndicator as it's not critical
 const ScrollIndicator = React.lazy(() => import("./ScrollIndicator"));
@@ -23,7 +24,7 @@ const Hero = () => {
       </p>
 
       <div className="hero-cta">
-        <button className="btn primary">Download CV</button>
+        <DownloadButton href="/resume.pdf">Download CV</DownloadButton>
         <button className="btn secondary">Contact Me</button>
       </div>
 

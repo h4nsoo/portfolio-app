@@ -1,0 +1,127 @@
+import React, { useRef, useEffect } from "react";
+import "../styles/StarryBackground.css";
+
+const STAR_COUNT = 120;
+const STAR_COLORS = ["#fff", "#bcdfff", "#e0e6ff", "#ffeedd"];
+
+function randomBetween(a, b) {
+  return a + Math.random() * (b - a);
+}
+
+const StarryBackground = () => {
+  const canvasRef = useRef(null);
+  const starsRef = useRef([]);
+  const mouseRef = useRef({ x: 0.5, y: 0.5 });
+  const lerpedMouse = useRef({ x: 0.5, y: 0.5 });
+  const animationRef = useRef();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    // Generate stars
+    starsRef.current = Array.from({ length: STAR_COUNT }, () => {
+      const radius = randomBetween(0.5, 1.8);
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        baseX: 0, // for parallax
+        baseY: 0,
+        radius,
+        color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
+        speed: randomBetween(0.08, 0.18),
+        twinkle: Math.random() * Math.PI * 2,
+      };
+    });
+    starsRef.current.forEach((star) => {
+      star.baseX = star.x;
+      star.baseY = star.y;
+    });
+
+    // Mouse parallax
+    const handleMouseMove = (e) => {
+      mouseRef.current.x = e.clientX / width;
+      mouseRef.current.y = e.clientY / height;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Resize
+    const handleResize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      starsRef.current.forEach((star) => {
+        star.x = Math.random() * width;
+        star.y = Math.random() * height;
+        star.baseX = star.x;
+        star.baseY = star.y;
+      });
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Animation
+    function animate() {
+      // Darker, original background
+    const gradient = ctx.createLinearGradient(0, 0, 0, height);
+    gradient.addColorStop(0, "#0a1030");
+    gradient.addColorStop(1, "#070a18");
+    ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+      // Lerp mouse for smooth parallax
+      lerpedMouse.current.x +=
+        (mouseRef.current.x - lerpedMouse.current.x) * 0.12;
+      lerpedMouse.current.y +=
+        (mouseRef.current.y - lerpedMouse.current.y) * 0.12;
+      for (let star of starsRef.current) {
+        // Parallax offset (stronger effect)
+        const parallaxX =
+          (lerpedMouse.current.x - 0.5) * 180 * (star.radius / 2);
+        const parallaxY =
+          (lerpedMouse.current.y - 0.5) * 180 * (star.radius / 2);
+        // Floating movement
+        star.baseX +=
+          Math.cos(performance.now() * 0.0007 + star.twinkle) * star.speed;
+        star.baseY +=
+          Math.sin(performance.now() * 0.0009 + star.twinkle) * star.speed;
+        // Wrap around screen
+        if (star.baseX < 0) star.baseX = width;
+        if (star.baseX > width) star.baseX = 0;
+        if (star.baseY < 0) star.baseY = height;
+        if (star.baseY > height) star.baseY = 0;
+        // Draw
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(
+          star.baseX + parallaxX,
+          star.baseY + parallaxY,
+          star.radius,
+          0,
+          Math.PI * 2
+        );
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = 0.85;
+        ctx.shadowColor = star.color;
+        ctx.shadowBlur = 8 * star.radius;
+        ctx.fill();
+        ctx.restore();
+      }
+      animationRef.current = requestAnimationFrame(animate);
+    }
+    animate();
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="starry-bg-canvas" />;
+};
+
+export default StarryBackground;

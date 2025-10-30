@@ -161,7 +161,6 @@
   margin: 0;
 }
 
-
 .skills-section {
   margin-top: -4rem;
   padding-bottom: 1rem;
@@ -392,6 +391,40 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.skills-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  gap: 1.5rem;
+}
+
+.tech-arsenal {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+.see-more-btn {
+  margin: 0;
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(90deg, #4169e1 0%, #27408b 100%);
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 12px 0 rgba(65, 105, 225, 0.08);
+  transition: background 0.2s, transform 0.2s;
+}
+.see-more-btn:hover {
+  background: linear-gradient(90deg, #27408b 0%, #4169e1 100%);
+  transform: translateY(-2px) scale(1.04);
 }
 
 @media (max-width: 768px) {

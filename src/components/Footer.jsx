@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import "../styles/Footer.css";
+import BackToTopButton from "./BackToTopButton";
 
 // Lazy load Socials component since it's at the bottom of the page
 const Socials = React.lazy(() => import("./Socials"));
@@ -8,7 +9,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = (e) => {
-    e.preventDefault(); // Prevent default anchor behavior
+    // If triggered from an anchor, prevent default. For a button this is harmless.
+    if (e && typeof e.preventDefault === "function") e.preventDefault();
     const scrollContainer = document.querySelector(
       ".simplebar-content-wrapper"
     );
@@ -50,14 +52,7 @@ const Footer = () => {
           <p className="copyright">
             &copy; {currentYear} Mohamed Belgacem | All Rights Reserved
           </p>
-          <a
-            href="#top"
-            className="back-to-top"
-            onClick={scrollToTop}
-            aria-label="Back to top"
-          >
-            Back to Top
-          </a>
+          <BackToTopButton onClick={scrollToTop} />
         </div>
       </div>
     </footer>

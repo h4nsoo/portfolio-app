@@ -5,6 +5,8 @@ import Hero from "./components/Hero";
 import SimpleBar from "simplebar-react";
 import StructuredData from "./components/StructuredData";
 import "simplebar-react/dist/simplebar.min.css";
+import StarryBackground from "./components/StarryBackground";
+import "./styles/StarryBackground.css";
 
 // Lazy load below-the-fold components to reduce initial bundle size
 const About = React.lazy(() => import("./components/About"));
@@ -42,6 +44,7 @@ const App = () => {
   return (
     <HelmetProvider>
       <StructuredData />
+      <StarryBackground />
       <SimpleBar
         style={{
           maxHeight: "100vh",
