@@ -114,8 +114,20 @@ const Projects = () => {
     const slider = sliderRef.current;
     if (slider) {
       updateScrollButtons();
-      slider.addEventListener("scroll", updateScrollButtons);
-      return () => slider.removeEventListener("scroll", updateScrollButtons);
+      let rafId = null;
+      const onScroll = () => {
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(() => {
+          updateScrollButtons();
+          rafId = null;
+        });
+      };
+
+      slider.addEventListener("scroll", onScroll, { passive: true });
+      return () => {
+        slider.removeEventListener("scroll", onScroll);
+        if (rafId) window.cancelAnimationFrame(rafId);
+      };
     }
   }, [filteredProjects]);
 

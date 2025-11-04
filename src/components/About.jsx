@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/About.css";
 import OptimizedImage from "./OptimizedImage";
 import SeeMoreButton from "./SeeMoreButton";
 
-import tsIcon from "../assets/javascript-icon.png"; // Using JS icon as placeholder for TypeScript
 import reactIcon from "../assets/react-icon.png";
 import nodeIcon from "../assets/node-icon.png";
 import mongodbIcon from "../assets/mongodb-icon.png";
@@ -27,7 +26,6 @@ const About = () => {
         date: "2023 - 2027",
         description:
           "Currently pursuing a Bachelor's degree in Business Administration with a major in Information Technology and minoring in business analytics. Learning both business fundamentals, data-related skills, and advanced software development techniques.",
-        achievements: [],
         courses: [
           "Data Structures & Algorithms",
           "System Design",
@@ -58,14 +56,12 @@ const About = () => {
         description:
           "Helped facilitate communication between students, faculty, and administration, ensuring clear information flow across all channels.",
         responsibilities: [
-          "Creating newsletters and email campaigns",
-          "Managing official communication channels",
+          "Planning and running the club's online presence",
           "Coordinating with other committees for event announcements",
-          "Developing communication strategies for campus initiatives",
+          "Conducted IT-focused workshops for members",
         ],
         projects: [
-          "Redesign of student announcement system",
-          "Communication toolkit for student organizations",
+          "Built and deployed a website for the club to serve as a public image and manage its core operations.",
         ],
       },
       {
@@ -74,9 +70,9 @@ const About = () => {
         role: "Marketing Team Member",
         date: "2024 - 2025",
         description:
-          "Working with Merit TBS to promote events and initiatives across campus using digital marketing techniques.",
+          "Contributed as a video editor and content creator for the marketing team, helped communicate the team's message.",
         responsibilities: [
-          "Editing high quality videos for promotional content",
+          "Editing high quality videos using Adobe After Effects and Premiere Pro",
         ],
       },
     ],
@@ -107,14 +103,14 @@ const About = () => {
       description: "JavaScript but better",
     },
     {
-      name: "React",
-      icon: reactIcon,
-      description: "A JavaScript library",
+      name: "Next.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+      description: "A React framework",
     },
     {
-      name: "Node.js",
-      icon: nodeIcon,
-      description: "A JavaScript runtime",
+      name: "Express.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      description: "A Node.js web framework",
     },
     {
       name: "MongoDB",
@@ -122,8 +118,8 @@ const About = () => {
       description: "A NoSQL database",
     },
     {
-      name: "MySQL",
-      icon: mysqlIcon,
+      name: "PostgreSQL",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
       description: "A relational database",
     },
     {
@@ -170,9 +166,9 @@ const About = () => {
       description: "Highly efficient language",
     },
     {
-      name: "Express.js",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-      description: "Node.js web framework",
+      name: "Node.js",
+      icon: nodeIcon,
+      description: "JavaScript runtime",
     },
     {
       name: "Docker",

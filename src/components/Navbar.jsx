@@ -4,71 +4,72 @@ import "../styles/Navbar.css";
 const Navbar = () => {
   const [activeItem, setActiveItem] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isScrollingRef = React.useRef(false);
+  const scrollTimeoutRef = React.useRef(null);
 
   useEffect(() => {
     const scrollContainer = document.querySelector(
       ".simplebar-content-wrapper"
     );
+    const getSections = () =>
+      [
+        document.getElementById("hero"),
+        document.getElementById("about"),
+        document.getElementById("projects"),
+      ].filter(Boolean);
+    let rafId = null;
+    let lastActive = null;
+    function handleScroll() {
+      // Skip scroll handler during programmatic scrolling
+      if (isScrollingRef.current) return;
 
-    let ticking = false;
-    let timeoutId = null;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const homeSection = document.getElementById("hero");
-          const aboutSection = document.getElementById("about");
-          const projectsSection = document.getElementById("projects");
-
-          if (
-            !scrollContainer ||
-            !homeSection ||
-            !aboutSection ||
-            !projectsSection
-          ) {
-            ticking = false;
-            return;
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        const sections = getSections();
+        if (!scrollContainer || sections.length === 0) {
+          rafId = null;
+          return;
+        }
+        const navbar = document.querySelector(".navbar");
+        const navbarHeight = navbar ? navbar.offsetHeight : 80;
+        const containerRect = scrollContainer.getBoundingClientRect();
+        let bestId = null;
+        let bestDistance = Number.POSITIVE_INFINITY;
+        sections.forEach((sec) => {
+          const rect = sec.getBoundingClientRect();
+          const distance = Math.abs(
+            rect.top - containerRect.top - navbarHeight
+          );
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestId = sec.id;
           }
-
-          const scrollY = scrollContainer.scrollTop;
-          const homeTop = homeSection.offsetTop;
-          const aboutTop = aboutSection.offsetTop;
-          const projectsTop = projectsSection.offsetTop;
-
-          // Use buffer to determine visibility threshold
-          const buffer = 150;
-
-          if (scrollY >= projectsTop - buffer) {
-            setActiveItem("projects");
-          } else if (scrollY >= aboutTop - buffer) {
-            setActiveItem("about");
-          } else {
-            setActiveItem("home");
-          }
-
-          ticking = false;
         });
-        ticking = true;
-      }
-    };
-
-    // Debounced scroll handler
-    const debouncedHandleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(handleScroll, 10);
-    };
-
-    if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", debouncedHandleScroll, {
-        passive: true,
+        if (bestId && bestId !== lastActive) {
+          setActiveItem(
+            bestId === "projects"
+              ? "projects"
+              : bestId === "about"
+              ? "about"
+              : "home"
+          );
+          lastActive = bestId;
+        }
+        rafId = null;
       });
     }
-
+    if (scrollContainer) {
+      scrollContainer.addEventListener("scroll", handleScroll, {
+        passive: true,
+      });
+      // Run once on mount
+      handleScroll();
+    }
     return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener("scroll", debouncedHandleScroll);
-      }
-      clearTimeout(timeoutId);
+      if (scrollContainer)
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
   }, []);
 
@@ -81,19 +82,33 @@ const Navbar = () => {
     const navbar = document.querySelector(".navbar");
 
     if (section && scrollContainer) {
-      const sectionTop = section.offsetTop;
       const navbarHeight = navbar ? navbar.offsetHeight : 80;
 
-      let offset = sectionTop - navbarHeight + 110;
+      // Compute position of section relative to the scroll container
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const sectionRect = section.getBoundingClientRect();
+
+      const relativeTop =
+        scrollContainer.scrollTop + (sectionRect.top - containerRect.top);
+
+      let offset = Math.max(0, Math.round(relativeTop - navbarHeight + 120));
 
       if (sectionId === "hero") offset = 0;
 
-      if (sectionId === "about") offset = 743; // hard codded
+      // Disable scroll handler during programmatic scroll
+      isScrollingRef.current = true;
 
-      scrollContainer.scrollTo({
-        top: offset,
-        behavior: "smooth",
-      });
+      // Clear any existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollContainer.scrollTo({ top: offset, behavior: "smooth" });
+
+      // Re-enable scroll handler after smooth scroll completes (approx 500-800ms)
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1000);
 
       setMobileMenuOpen(false);
     }

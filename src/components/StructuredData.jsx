@@ -1,4 +1,3 @@
-import React from "react";
 import { Helmet } from "react-helmet-async";
 
 const StructuredData = () => {
@@ -7,7 +6,7 @@ const StructuredData = () => {
     "@type": "Person",
     name: "Mohamed Belgacem",
     jobTitle: "Full Stack Developer",
-    url: "https://yourportfolio.com",
+    url: "mohamed-belgacem.vercel.app",
     email: "mbhansoo05@gmail.com",
     alumniOf: {
       "@type": "EducationalOrganization",
@@ -24,8 +23,8 @@ const StructuredData = () => {
       "Figma",
     ],
     sameAs: [
-      "https://github.com/yourusername",
-      "https://linkedin.com/in/yourusername",
+      "https://github.com/h4nsoo",
+      "https://linkedin.com/in/h4nsoo",
     ],
   };
 
