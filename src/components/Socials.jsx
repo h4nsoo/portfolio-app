@@ -4,9 +4,9 @@ const Socials = () => {
   return (
     <div className="socials-container">
       <div className="socials-wrapper">
-  
         <a
-          href="#"
+          href="https://linkedin.com/in/h4nsoo"
+          target="_blank"
           className="socialContainer containerOne"
           aria-label="LinkedIn"
         >
@@ -16,7 +16,8 @@ const Socials = () => {
         </a>
 
         <a
-          href="#"
+          href="https://github.com/h4nsoo"
+          target="_blank"
           className="socialContainer containerTwo"
           aria-label="GitHub"
         >
@@ -26,7 +27,8 @@ const Socials = () => {
         </a>
 
         <a
-          href="#"
+          href="https://www.facebook.com/h4nsoo"
+          target="_blank"
           className="socialContainer containerThree"
           aria-label="Facebook"
         >
@@ -37,6 +39,7 @@ const Socials = () => {
 
         <a
           href="#"
+          target="_blank"
           className="socialContainer containerFour"
           aria-label="Instagram"
         >
