@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { createPortal } from "react-dom";
 import "../styles/About.css";
 import OptimizedImage from "./OptimizedImage";
 import SeeMoreButton from "./SeeMoreButton";
 
-import reactIcon from "../assets/react-icon.png";
-import nodeIcon from "../assets/node-icon.png";
 import mongodbIcon from "../assets/mongodb-icon.png";
 import gitIcon from "../assets/git-icon.png";
 import figmaIcon from "../assets/figma-logo.png";
 import pythonIcon from "../assets/python-logo.png";
-import mysqlIcon from "../assets/mysql-icon.png";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("education");
@@ -17,7 +15,7 @@ const About = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showAllSkills, setShowAllSkills] = useState(false);
 
-  const timelineData = {
+  const timelineData = useMemo(() => ({
     education: [
       {
         id: "edu1",
@@ -76,7 +74,7 @@ const About = () => {
         ],
       },
     ],
-  };
+  }), []);
 
   const openModal = (item) => {
     setSelectedItem(item);
@@ -96,7 +94,7 @@ const About = () => {
     }
   };
 
-  const mainSkills = [
+  const mainSkills = useMemo(() => [
     {
       name: "TypeScript",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
@@ -137,9 +135,9 @@ const About = () => {
       icon: pythonIcon,
       description: "A programming language",
     },
-  ];
+  ], []);
 
-  const extraSkills = [
+  const extraSkills = useMemo(() => [
     {
       name: "HTML5",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
@@ -167,7 +165,7 @@ const About = () => {
     },
     {
       name: "Node.js",
-      icon: nodeIcon,
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
       description: "JavaScript runtime",
     },
     {
@@ -180,7 +178,7 @@ const About = () => {
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
       description: "Operating system",
     },
-  ];
+  ], []);
 
   return (
     <div id="about" className="about-section">
@@ -286,8 +284,8 @@ const About = () => {
         </div>
       </div>
 
-      {/* Modal/Popup */}
-      {modalOpen && selectedItem && (
+      {/* Modal/Popup - rendered via Portal to ensure proper centering */}
+      {modalOpen && selectedItem && createPortal(
         <div className="modal-overlay" onClick={handleModalClick}>
           <div className="modal-content">
             <button className="modal-close" onClick={closeModal}>
@@ -367,7 +365,8 @@ const About = () => {
               </div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

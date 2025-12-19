@@ -269,8 +269,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   z-index: 1100;
@@ -278,6 +278,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .modal-content {
@@ -297,6 +298,7 @@
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
   color: white;
   animation: modalFadeIn 0.3s ease forwards;
+  margin: auto;
 }
 
 .modal-close {

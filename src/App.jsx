@@ -45,6 +45,7 @@ const App = () => {
     <HelmetProvider>
       <StructuredData />
       <StarryBackground />
+      <Navbar />
       <SimpleBar
         style={{
           maxHeight: "100vh",
@@ -56,7 +57,6 @@ const App = () => {
         forceVisible={false}
         clickOnTrack={false}
       >
-        <Navbar />
         <Hero />
         <Suspense fallback={<LoadingFallback />}>
           <About />

@@ -7,6 +7,7 @@ const Socials = () => {
         <a
           href="https://linkedin.com/in/h4nsoo"
           target="_blank"
+          rel="noopener noreferrer"
           className="socialContainer containerOne"
           aria-label="LinkedIn"
         >
@@ -18,6 +19,7 @@ const Socials = () => {
         <a
           href="https://github.com/h4nsoo"
           target="_blank"
+          rel="noopener noreferrer"
           className="socialContainer containerTwo"
           aria-label="GitHub"
         >
@@ -29,6 +31,7 @@ const Socials = () => {
         <a
           href="https://www.facebook.com/h4nsoo"
           target="_blank"
+          rel="noopener noreferrer"
           className="socialContainer containerThree"
           aria-label="Facebook"
         >
@@ -40,6 +43,7 @@ const Socials = () => {
         <a
           href="#"
           target="_blank"
+          rel="noopener noreferrer"
           className="socialContainer containerFour"
           aria-label="Instagram"
         >

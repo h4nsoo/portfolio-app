@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/DownloadButton.css";
 
-const DownloadButton = ({ href = "/resume.pdf", children = "Download" }) => {
+const DownloadButton = React.memo(({ href = "/resume.pdf", children = "Download" }) => {
   return (
     <a className="download-btn button" href={href} download>
       <span className="button__text">{children}</span>
@@ -20,6 +20,6 @@ const DownloadButton = ({ href = "/resume.pdf", children = "Download" }) => {
       </span>
     </a>
   );
-};
+});
 
 export default DownloadButton;

@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/SeeMoreButton.css";
 
-const SeeMoreButton = ({ expanded = false, onClick }) => {
+const SeeMoreButton = React.memo(({ expanded = false, onClick }) => {
   return (
     <div className="see-more-wrapper">
       <button
@@ -19,6 +19,6 @@ const SeeMoreButton = ({ expanded = false, onClick }) => {
       </button>
     </div>
   );
-};
+});
 
 export default SeeMoreButton;

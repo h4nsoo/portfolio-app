@@ -7,79 +7,86 @@ const Navbar = () => {
   const isScrollingRef = React.useRef(false);
   const scrollTimeoutRef = React.useRef(null);
 
+  // Use IntersectionObserver for reliable section detection
   useEffect(() => {
-    const scrollContainer = document.querySelector(
-      ".simplebar-content-wrapper"
-    );
-    const getSections = () =>
-      [
-        document.getElementById("hero"),
-        document.getElementById("about"),
-        document.getElementById("projects"),
-      ].filter(Boolean);
-    let rafId = null;
-    let lastActive = null;
-    function handleScroll() {
-      // Skip scroll handler during programmatic scrolling
-      if (isScrollingRef.current) return;
+    const sectionIds = ["hero", "about", "projects"];
+    const sectionToNav = { hero: "home", about: "about", projects: "projects" };
+    
+    // Track which sections are currently visible and their intersection ratios
+    const visibleSections = new Map();
 
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(() => {
-        const sections = getSections();
-        if (!scrollContainer || sections.length === 0) {
-          rafId = null;
-          return;
-        }
-        const navbar = document.querySelector(".navbar");
-        const navbarHeight = navbar ? navbar.offsetHeight : 80;
-        const containerRect = scrollContainer.getBoundingClientRect();
-        let bestId = null;
-        let bestDistance = Number.POSITIVE_INFINITY;
-        sections.forEach((sec) => {
-          const rect = sec.getBoundingClientRect();
-          const distance = Math.abs(
-            rect.top - containerRect.top - navbarHeight
-          );
-          if (distance < bestDistance) {
-            bestDistance = distance;
-            bestId = sec.id;
+    const updateActiveSection = () => {
+      if (isScrollingRef.current) return;
+      
+      // Find the section with highest visibility that's near the top
+      let bestSection = null;
+      let bestScore = -1;
+
+      visibleSections.forEach((data, sectionId) => {
+        if (data.isIntersecting) {
+          // Score based on intersection ratio and position (prefer sections near top)
+          const score = data.intersectionRatio + (data.isNearTop ? 0.5 : 0);
+          if (score > bestScore) {
+            bestScore = score;
+            bestSection = sectionId;
           }
-        });
-        if (bestId && bestId !== lastActive) {
-          setActiveItem(
-            bestId === "projects"
-              ? "projects"
-              : bestId === "about"
-              ? "about"
-              : "home"
-          );
-          lastActive = bestId;
         }
-        rafId = null;
       });
-    }
-    if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", handleScroll, {
-        passive: true,
-      });
-      // Run once on mount
-      handleScroll();
-    }
+
+      if (bestSection) {
+        setActiveItem(sectionToNav[bestSection]);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const sectionId = entry.target.id;
+          const rect = entry.boundingClientRect;
+          const isNearTop = rect.top < window.innerHeight * 0.5 && rect.top > -rect.height * 0.5;
+          
+          visibleSections.set(sectionId, {
+            isIntersecting: entry.isIntersecting,
+            intersectionRatio: entry.intersectionRatio,
+            isNearTop,
+          });
+        });
+        updateActiveSection();
+      },
+      {
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+        rootMargin: "-80px 0px -40% 0px", // Account for navbar height and focus on upper portion
+      }
+    );
+
+    // Observe all sections
+    const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+    sections.forEach((section) => observer.observe(section));
+
     return () => {
-      if (scrollContainer)
-        scrollContainer.removeEventListener("scroll", handleScroll);
-      if (rafId) window.cancelAnimationFrame(rafId);
+      sections.forEach((section) => observer.unobserve(section));
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
   }, []);
 
   const scrollToSection = (sectionId, e) => {
     if (e) e.preventDefault(); // Prevent default anchor behavior
+    
+    // Clear any existing scroll timeout and reset scrolling flag
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    isScrollingRef.current = false;
+    
     const section = document.getElementById(sectionId);
     const scrollContainer = document.querySelector(
       ".simplebar-content-wrapper"
     );
     const navbar = document.querySelector(".navbar");
+
+    // Immediately update active item
+    const sectionToNav = { hero: "home", about: "about", projects: "projects" };
+    setActiveItem(sectionToNav[sectionId] || "home");
 
     if (section && scrollContainer) {
       const navbarHeight = navbar ? navbar.offsetHeight : 80;
@@ -95,20 +102,15 @@ const Navbar = () => {
 
       if (sectionId === "hero") offset = 0;
 
-      // Disable scroll handler during programmatic scroll
+      // Disable IntersectionObserver updates during programmatic scroll
       isScrollingRef.current = true;
-
-      // Clear any existing timeout
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
 
       scrollContainer.scrollTo({ top: offset, behavior: "smooth" });
 
-      // Re-enable scroll handler after smooth scroll completes (approx 500-800ms)
+      // Re-enable IntersectionObserver after smooth scroll completes
       scrollTimeoutRef.current = setTimeout(() => {
         isScrollingRef.current = false;
-      }, 1000);
+      }, 800);
 
       setMobileMenuOpen(false);
     }

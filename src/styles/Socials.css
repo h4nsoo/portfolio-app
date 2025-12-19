@@ -123,6 +123,17 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 768px) {
+  .socials-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .socials-wrapper {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 480px) {
   .footer-social-container .socials-wrapper {
     justify-content: center;

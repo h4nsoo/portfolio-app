@@ -4,12 +4,15 @@ body {
   background: #141e30;
   background: -webkit-linear-gradient(to right, #243b55, #141e30);
   background: linear-gradient(to right, #243b55, #141e30);
-
   color: white;
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overscroll-behavior: none;
+  overflow: hidden;
 }
 
 .simplebar-scrollbar::before {
@@ -29,10 +32,11 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  overscroll-behavior: none;
+/* Hardware acceleration for smoother scrolling */
+.simplebar-content {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 body::-webkit-scrollbar {

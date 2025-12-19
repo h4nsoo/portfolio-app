@@ -1,6 +1,6 @@
 import React from "react";
 
-const OptimizedImage = ({
+const OptimizedImage = React.memo(({
   src,
   alt,
   className,
@@ -20,6 +20,6 @@ const OptimizedImage = ({
       style={{ contentVisibility: "auto" }}
     />
   );
-};
+});
 
 export default OptimizedImage;

@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/BackToTopButton.css";
 
-const BackToTopButton = ({ onClick }) => {
+const BackToTopButton = React.memo(({ onClick }) => {
   return (
     <button
       className="back-to-top-btn"
@@ -19,6 +19,6 @@ const BackToTopButton = ({ onClick }) => {
       </svg>
     </button>
   );
-};
+});
 
 export default BackToTopButton;

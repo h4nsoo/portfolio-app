@@ -131,6 +131,25 @@
 
   .footer-section {
     min-width: 100%;
+    text-align: center;
+  }
+
+  .footer-title {
+    display: block;
+    text-align: center;
+  }
+
+  .footer-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .contact-item {
+    align-items: center;
   }
 
   .footer-bottom {

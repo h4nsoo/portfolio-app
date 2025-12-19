@@ -67,11 +67,28 @@ const StarryBackground = () => {
     // Animation
     function animate() {
       // Darker, original background
-    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, "#0a1030");
-    gradient.addColorStop(1, "#070a18");
-    ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
+      // Create gradient only if needed or use a solid color for performance if gradient is static
+      // Since the gradient depends on height which changes on resize, we can recreate it here or cache it.
+      // For better performance, let's cache it in a variable outside the loop if height hasn't changed,
+      // but since we are inside useEffect, we can just use the current context.
+      // Actually, clearing with a solid color and using CSS for the gradient background might be faster,
+      // but let's just optimize the JS creation.
+
+      // Optimization: Move gradient creation out of the loop or just use fillStyle.
+      // However, since height is constant during animation frame usually, we can just set it once.
+      // But let's just keep it simple and efficient.
+
+      ctx.fillStyle = "#0a1030"; // Fallback or base
+      // Re-creating gradient every frame is expensive.
+      // Let's assume the background is static and draw it once?
+      // No, we need to clear the canvas to animate stars.
+
+      // Better: Use CSS for the background gradient and clearRect the canvas.
+      // The canvas is transparent? No, it has a background color.
+      // Let's make the canvas transparent and set the background on the container div (or body).
+
+      ctx.clearRect(0, 0, width, height);
+
       // Lerp mouse for smooth parallax
       lerpedMouse.current.x +=
         (mouseRef.current.x - lerpedMouse.current.x) * 0.12;

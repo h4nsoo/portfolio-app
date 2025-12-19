@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import "../styles/Projects.css";
 import OptimizedImage from "./OptimizedImage";
 import portfolioproject from "../assets/portfolioproject.png";
@@ -12,7 +12,7 @@ const Projects = () => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const projects = [
+  const projects = useMemo(() => [
     {
       id: 1,
       title: "Portfolio Website",
@@ -67,7 +67,7 @@ const Projects = () => {
       github: "https://github.com/yourusername/subscription-tracker",
       demo: "https://subscription-tracker.com",
     },
-  ];
+  ], []);
 
   useEffect(() => {
     if (activeFilter === "all") {
@@ -77,38 +77,42 @@ const Projects = () => {
         projects.filter((project) => project.category === activeFilter)
       );
     }
-    // Center scroll position when filter changes
-    if (sliderRef.current) {
-      const scrollWidth = sliderRef.current.scrollWidth;
-      const clientWidth = sliderRef.current.clientWidth;
-      const centerPosition = (scrollWidth - clientWidth) / 2;
-      sliderRef.current.scrollTo({ left: centerPosition, behavior: "smooth" });
-    }
-  }, [activeFilter]);
-
-  // Center the slider on initial load
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (slider && filteredProjects.length > 0) {
-      // Wait for images to load and layout to settle
-      setTimeout(() => {
-        const scrollWidth = slider.scrollWidth;
-        const clientWidth = slider.clientWidth;
+    // Center scroll position when filter changes - defer to next frame to avoid reflow
+    requestAnimationFrame(() => {
+      if (sliderRef.current) {
+        const scrollWidth = sliderRef.current.scrollWidth;
+        const clientWidth = sliderRef.current.clientWidth;
         const centerPosition = (scrollWidth - clientWidth) / 2;
-        slider.scrollTo({ left: centerPosition, behavior: "auto" });
-        updateScrollButtons();
-      }, 100);
-    }
-  }, [filteredProjects]);
+        sliderRef.current.scrollTo({ left: centerPosition, behavior: "smooth" });
+      }
+    });
+  }, [activeFilter, projects]);
 
-  // Update scroll button states
-  const updateScrollButtons = () => {
+  // Update scroll button states - memoized to prevent recreating on each render
+  const updateScrollButtons = useCallback(() => {
     if (sliderRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
     }
-  };
+  }, []);
+
+  // Center the slider on initial load
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (slider && filteredProjects.length > 0) {
+      // Use requestAnimationFrame to batch layout reads and avoid forced reflow
+      const frameId = requestAnimationFrame(() => {
+        const scrollWidth = slider.scrollWidth;
+        const clientWidth = slider.clientWidth;
+        const centerPosition = (scrollWidth - clientWidth) / 2;
+        slider.scrollTo({ left: centerPosition, behavior: "auto" });
+        // Defer updateScrollButtons to next frame to avoid layout thrashing
+        requestAnimationFrame(updateScrollButtons);
+      });
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [filteredProjects, updateScrollButtons]);
 
   useEffect(() => {
     const slider = sliderRef.current;
