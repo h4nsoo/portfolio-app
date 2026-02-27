@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import "../styles/Projects.css";
 import OptimizedImage from "./OptimizedImage";
-import portfolioproject from "../assets/portfolioproject.png";
 import meritwebsite from "../assets/merit-website.png";
 import mangaapp from "../assets/manga-app.png";
 
@@ -13,19 +12,9 @@ const Projects = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   const projects = useMemo(() => [
+
     {
       id: 1,
-      title: "Portfolio Website",
-      description:
-        "A modern React portfolio with glass-morphism UI elements and animations",
-      image: portfolioproject,
-      technologies: ["React", "CSS"],
-      category: "web",
-      github: "https://github.com/h4nsoo/portfolio-app",
-      demo: "https://yourportfolio.com",
-    },
-    {
-      id: 2,
       title: "Merit TBS Website",
       description: "A responsive student management application",
       image: meritwebsite,
@@ -35,37 +24,44 @@ const Projects = () => {
       demo: "https://merit-club-tbs.vercel.app",
     },
     {
-      id: 3,
-      title: "ToonSah - Manga Website",
+      id: 2,
+      title: "ToonSah - Manga Reader Website",
       description:
         "A manga reading website that fetches data from an external API and displays it in a user-friendly manner",
       image: mangaapp,
       technologies: ["React", "CSS"],
-      category: "web",
+      category: "frontend",
       github: "https://github.com/h4nsoo/manga-website",
     },
     {
-      id: 4,
-      title: "CLI Student Management System",
+      id: 3,
+      title: "Aalemni Gym",
       description:
-        "A command-line interface application for managing student records with CRUD operations and SQLite database integration",
-      image:
-        "https://placehold.co/600x400/4169e1/white?text=Student+Management+CLI",
+        "A API for managing a social gym platform, integrating AI powered features, a gamification layer, and social features",
       technologies: ["Java", "SQLite"],
-      category: "fullstack",
-      github: "https://github.com/yourusername/student-management-cli",
+      category: "backend-api",
+      github: "https://github.com/h4nsoo/aalemnigym-app",
+      endpoints: [
+        { method: "GET", path: "/api/v1/machines" },
+        { method: "POST", path: "/api/v1/machines/scan" },
+        { method: "PUT", path: "/api/v1/exercises" },
+        { method: "DELETE", path: "/api/v1/users" },
+      ],
     },
     {
-      id: 5,
-      title: "Subscription Tracker",
+      id: 4,
+      title: "FTMF League API",
       description:
-        "A web application to track and manage recurring subscriptions with payment reminders and analytics dashboard",
-      image:
-        "https://placehold.co/600x400/4169e1/white?text=Subscription+Tracker",
-      technologies: ["Node.js", "Express", "MongoDB"],
-      category: "fullstack",
-      github: "https://github.com/yourusername/subscription-tracker",
-      demo: "https://subscription-tracker.com",
+        "An API for the Tunisian mini foot federation to manage leagues, teams, and match results",
+      technologies: ["Python", "Flask", "PostgreSQL"],
+      category: "backend-api",
+      github: "",
+      endpoints: [
+        { method: "GET", path: "/api/groups" },
+        { method: "GET", path: "/api/teams" },
+        { method: "POST", path: "/api/fixtures" },
+        { method: "GET", path: "/api/standings" },
+      ],
     },
   ], []);
 
@@ -163,18 +159,10 @@ const Projects = () => {
             All
           </button>
           <button
-            className={`filter-btn ${activeFilter === "web" ? "active" : ""}`}
-            onClick={() => setActiveFilter("web")}
+            className={`filter-btn ${activeFilter === "frontend" ? "active" : ""}`}
+            onClick={() => setActiveFilter("frontend")}
           >
-            Web
-          </button>
-          <button
-            className={`filter-btn ${
-              activeFilter === "mobile" ? "active" : ""
-            }`}
-            onClick={() => setActiveFilter("mobile")}
-          >
-            Mobile
+            Frontend
           </button>
           <button
             className={`filter-btn ${
@@ -183,6 +171,14 @@ const Projects = () => {
             onClick={() => setActiveFilter("fullstack")}
           >
             Full Stack
+          </button>
+          <button
+            className={`filter-btn ${
+              activeFilter === "backend-api" ? "active" : ""
+            }`}
+            onClick={() => setActiveFilter("backend-api")}
+          >
+            API
           </button>
         </div>
 
@@ -209,46 +205,78 @@ const Projects = () => {
 
           <div className="projects-slider" ref={sliderRef}>
             {filteredProjects.map((project, index) => (
-              <div key={project.id} className="project-card">
-                <div className="project-image">
-                  <OptimizedImage
-                    src={project.image}
-                    alt={project.title}
-                    width="600"
-                    height="400"
-                    loading={index < 2 ? "eager" : "lazy"}
-                  />
-                  <div className="project-links">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                        aria-label={`View ${project.title} on GitHub`}
-                      >
-                        GitHub
-                      </a>
-                    )}
-                    {project.demo && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                        aria-label={`View ${project.title} demo`}
-                      >
-                        Demo
-                      </a>
-                    )}
+              <div key={project.id} className={`project-card ${project.endpoints ? "api-card" : ""}`}>
+                {project.endpoints ? (
+                  <div className="api-preview">
+                    <div className="api-preview-header">
+                      <span className="api-dot red"></span>
+                      <span className="api-dot yellow"></span>
+                      <span className="api-dot green"></span>
+                      <span className="api-preview-title">example endpoints</span>
+                    </div>
+                    <div className="api-preview-body">
+                      {project.endpoints.map((ep, i) => (
+                        <div key={i} className="api-endpoint">
+                          <span className={`api-method ${ep.method.toLowerCase()}`}>{ep.method}</span>
+                          <span className="api-path">{ep.path}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="project-links">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-link"
+                          aria-label={`View ${project.title} on GitHub`}
+                        >
+                          GitHub
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="project-image">
+                    <OptimizedImage
+                      src={project.image}
+                      alt={project.title}
+                      width="600"
+                      height="400"
+                      loading={index < 2 ? "eager" : "lazy"}
+                    />
+                    <div className="project-links">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-link"
+                          aria-label={`View ${project.title} on GitHub`}
+                        >
+                          GitHub
+                        </a>
+                      )}
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-link"
+                          aria-label={`View ${project.title} demo`}
+                        >
+                          Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
                 <div className="project-info">
                   <h3>{project.title}</h3>
                   <p className="project-description">{project.description}</p>
                   <div className="tech-stack">
-                    {project.technologies.map((tech, index) => (
-                      <span key={index} className="tech-tag">
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="tech-tag">
                         {tech}
                       </span>
                     ))}

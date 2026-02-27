@@ -3,7 +3,7 @@ import "../styles/DownloadButton.css";
 
 const DownloadButton = React.memo(({ href = "/resume.pdf", children = "Download" }) => {
   return (
-    <a className="download-btn button" href={href} download>
+    <a className="download-btn button" href={href} download target="_blank" rel="noopener noreferrer">
       <span className="button__text">{children}</span>
       <span className="button__icon" aria-hidden="true">
         <svg

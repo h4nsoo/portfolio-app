@@ -8,7 +8,7 @@ const Typewriter = () => {
 
   useEffect(() => {
     typedInstance.current = new Typed(typedRef.current, {
-      strings: ["Web Developer", "Mobile Developer", "Software Developer"],
+      strings: ["IT Student", "Software Developer", "DevOps engineering enthusiast"],
       typeSpeed: 80,
       backSpeed: 50,
       backDelay: 3000,

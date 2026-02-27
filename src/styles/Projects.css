@@ -171,6 +171,119 @@
   height: 180px; /* Same height as non-featured */
 }
 
+/* ── API Terminal Preview Card ── */
+.api-preview {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #0d1117;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.api-preview-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.api-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.api-dot.red { background: #ff5f56; }
+.api-dot.yellow { background: #ffbd2e; }
+.api-dot.green { background: #27c93f; }
+
+.api-preview-title {
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.api-preview-body {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.api-endpoint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.api-method {
+  font-weight: 700;
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  min-width: 52px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.api-method.get {
+  color: #3fb950;
+  background: rgba(63, 185, 80, 0.12);
+  border: 1px solid rgba(63, 185, 80, 0.25);
+}
+
+.api-method.post {
+  color: #58a6ff;
+  background: rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(88, 166, 255, 0.25);
+}
+
+.api-method.put {
+  color: #d29922;
+  background: rgba(210, 153, 34, 0.12);
+  border: 1px solid rgba(210, 153, 34, 0.25);
+}
+
+.api-method.delete {
+  color: #f85149;
+  background: rgba(248, 81, 73, 0.12);
+  border: 1px solid rgba(248, 81, 73, 0.25);
+}
+
+.api-path {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.api-preview .project-links {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .api-preview .project-links {
+  opacity: 1;
+}
+
 .project-image img {
   width: 100%;
   height: 100%;

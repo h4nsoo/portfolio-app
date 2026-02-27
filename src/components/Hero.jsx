@@ -25,7 +25,9 @@ const Hero = () => {
 
       <div className="hero-cta">
         <DownloadButton href="/resume.pdf">Download CV</DownloadButton>
-        <button className="btn secondary">Contact Me</button>
+        <a href="mailto:mbhansoo05@gmail.com" className="btn secondary" target="_blank" rel="noopener noreferrer">
+          Contact Me
+        </a>
       </div>
 
       <Suspense fallback={null}>
