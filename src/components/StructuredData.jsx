@@ -6,7 +6,7 @@ const StructuredData = () => {
     "@type": "Person",
     name: "Mohamed Belgacem",
     jobTitle: "Full Stack Developer",
-    url: "mohamed-belgacem.vercel.app",
+    url: "https://mohamed-belgacem.vercel.app",
     email: "mbhansoo05@gmail.com",
     alumniOf: {
       "@type": "EducationalOrganization",

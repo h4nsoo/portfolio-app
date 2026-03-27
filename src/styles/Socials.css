@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   z-index: 1;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -82,7 +82,7 @@
 .socialSvg {
   width: 18px;
   height: 18px;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .socialSvg path {
@@ -94,28 +94,12 @@
   fill: white;
 }
 
-.socialContainer:hover .socialSvg {
-  animation: pop-up 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
 
 .githubSvg {
   width: 20px;
   height: 20px;
 }
 
-@keyframes pop-up {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 
 /* Footer-specific styles */
 .footer-social-container .socials-wrapper {

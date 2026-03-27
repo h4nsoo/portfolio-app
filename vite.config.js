@@ -9,7 +9,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor': ['react', 'react-dom'],
-          'animations': ['framer-motion', '@react-spring/web'],
         },
       },
     },

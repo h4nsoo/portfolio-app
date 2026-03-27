@@ -33,7 +33,6 @@
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    animation: wheel 1.5s infinite;
   }
   
   .arrows {
@@ -51,40 +50,10 @@
     border-right: 2px solid #ffffff;
     transform: rotate(45deg);
     margin: -6px;
-    animation: arrows 1.5s infinite;
-  }
-  
-  .arrows span:first-child {
-    animation-delay: 0.2s;
-  }
-  
-  .arrows span:last-child {
-    animation-delay: 0.4s;
   }
   
 
-  @keyframes wheel {
-    0% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(20px);
-    }
-  }
-  
-  @keyframes arrows {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
+
   
 
   @media (max-width: 768px) {

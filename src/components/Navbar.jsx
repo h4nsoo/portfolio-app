@@ -54,7 +54,7 @@ const Navbar = () => {
         updateActiveSection();
       },
       {
-        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+        threshold: [0, 0.2, 0.5, 0.8],
         rootMargin: "-80px 0px -40% 0px", // Account for navbar height and focus on upper portion
       }
     );

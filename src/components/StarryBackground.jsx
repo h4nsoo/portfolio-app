@@ -122,8 +122,6 @@ const StarryBackground = () => {
         );
         ctx.fillStyle = star.color;
         ctx.globalAlpha = 0.85;
-        ctx.shadowColor = star.color;
-        ctx.shadowBlur = 8 * star.radius;
         ctx.fill();
         ctx.restore();
       }

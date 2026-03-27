@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import "../styles/Projects.css";
 import OptimizedImage from "./OptimizedImage";
-import meritwebsite from "../assets/merit-website.png";
-import mangaapp from "../assets/manga-app.png";
+import meritwebsite from "../assets/merit-website.webp";
+import mangaapp from "../assets/manga-app.webp";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -55,7 +55,7 @@ const Projects = () => {
         "An API for the Tunisian mini foot federation to manage leagues, teams, and match results",
       technologies: ["Python", "Flask", "PostgreSQL"],
       category: "backend-api",
-      github: "",
+      github: "https://github.com/h4nsoo/ftmf-app",
       endpoints: [
         { method: "GET", path: "/api/groups" },
         { method: "GET", path: "/api/teams" },
@@ -114,22 +114,22 @@ const Projects = () => {
     const slider = sliderRef.current;
     if (slider) {
       updateScrollButtons();
-      let rafId = null;
+      let timeoutId = null;
       const onScroll = () => {
-        if (rafId) return;
-        rafId = window.requestAnimationFrame(() => {
+        if (timeoutId) return;
+        timeoutId = setTimeout(() => {
           updateScrollButtons();
-          rafId = null;
-        });
+          timeoutId = null;
+        }, 100);
       };
 
       slider.addEventListener("scroll", onScroll, { passive: true });
       return () => {
         slider.removeEventListener("scroll", onScroll);
-        if (rafId) window.cancelAnimationFrame(rafId);
+        if (timeoutId) clearTimeout(timeoutId);
       };
     }
-  }, [filteredProjects]);
+  }, [filteredProjects, updateScrollButtons]);
 
   const scroll = (direction) => {
     if (sliderRef.current) {

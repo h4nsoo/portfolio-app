@@ -14,7 +14,7 @@ const Hero = () => {
       <h1 className="hero-title">
         <span className="name">
           <span className="regular">Beautiful </span>
-          <span className="highlight">Interfaces & Flawless</span>
+          <span className="highlight">Interfaces &amp; Flawless</span>
           <span className="regular"> Functionality.</span>
         </span>
       </h1>
@@ -25,7 +25,7 @@ const Hero = () => {
 
       <div className="hero-cta">
         <DownloadButton href="/resume.pdf">Download CV</DownloadButton>
-        <a href="mailto:mbhansoo05@gmail.com" className="btn secondary" target="_blank" rel="noopener noreferrer">
+        <a href="mailto:mbhansoo05@gmail.com" className="btn secondary">
           Contact Me
         </a>
       </div>

@@ -266,7 +266,7 @@ const About = () => {
         <div className="skills-grid">
           {(showAllSkills ? mainSkills.concat(extraSkills) : mainSkills).map(
             (skill, index) => (
-              <div key={index} className="skill-item">
+              <div key={skill.name} className="skill-item">
                 <div className="skill-header">
                   <OptimizedImage
                     src={skill.icon}
