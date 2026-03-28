@@ -1,0 +1,1 @@
+import{j as s}from"./index-BUyLbJlg.js";import"./vendor-C7tYskqo.js";const a=()=>s.jsxs("div",{className:"scroll-indicator",children:[s.jsx("div",{className:"mouse",children:s.jsx("div",{className:"wheel"})}),s.jsxs("div",{className:"arrows",children:[s.jsx("span",{}),s.jsx("span",{})]})]});export{a as default};
