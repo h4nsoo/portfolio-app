@@ -1,0 +1,1 @@
+import{R as s,j as a}from"./index-CE1Ivudo.js";const i=s.memo(({src:s,alt:i,className:t,loading:e="lazy",width:o,height:l})=>a.jsx("img",{src:s,alt:i,className:t,loading:e,decoding:"async",width:o,height:l,style:{contentVisibility:"auto"}}));export{i as O};
