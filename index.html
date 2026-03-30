@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/icon3.png" />
-    <link rel="apple-touch-icon" href="/icon3.png" />
+    <link rel="icon" type="image/png" href="./icon3.png" />
+    <link rel="apple-touch-icon" href="./icon3.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,7 +13,10 @@
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <noscript>
       <link
@@ -43,8 +46,11 @@
       content="Explore my portfolio showcasing web development projects built with React, Node.js, and modern technologies."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mohamed-belgacem.vercel.app" />
-    <meta property="og:image" content="https://mohamed-belgacem.vercel.app/portfolio-preview.png" />
+    <meta property="og:url" content="https://medbelgacem.tech" />
+    <meta
+      property="og:image"
+      content="https://medbelgacem.tech/portfolio-preview.png"
+    />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -56,12 +62,15 @@
       name="twitter:description"
       content="Explore my portfolio showcasing web development projects built with React, Node.js, and modern technologies."
     />
-    <meta name="twitter:image" content="https://mohamed-belgacem.vercel.app/portfolio-preview.png" />
+    <meta
+      name="twitter:image"
+      content="https://medbelgacem.tech/portfolio-preview.png"
+    />
 
     <title>Mohamed Belgacem Portfolio</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="./src/main.jsx"></script>
   </body>
 </html>

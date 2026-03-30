@@ -6,7 +6,7 @@ const StructuredData = () => {
     "@type": "Person",
     name: "Mohamed Belgacem",
     jobTitle: "Full Stack Developer",
-    url: "https://mohamed-belgacem.vercel.app",
+    url: "https://medbelgacem.tech",
     email: "mbhansoo05@gmail.com",
     alumniOf: {
       "@type": "EducationalOrganization",
@@ -22,10 +22,7 @@ const StructuredData = () => {
       "Git",
       "Figma",
     ],
-    sameAs: [
-      "https://github.com/h4nsoo",
-      "https://linkedin.com/in/h4nsoo",
-    ],
+    sameAs: ["https://github.com/h4nsoo", "https://linkedin.com/in/h4nsoo"],
   };
 
   return (

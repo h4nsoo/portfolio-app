@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import "../styles/Projects.css";
 import OptimizedImage from "./OptimizedImage";
 import meritwebsite from "../assets/merit-website.webp";
@@ -11,66 +17,68 @@ const Projects = () => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const projects = useMemo(() => [
-
-    {
-      id: 1,
-      title: "Merit TBS Website",
-      description: "A responsive student management application",
-      image: meritwebsite,
-      technologies: ["NextJS", "TypeScript", "PostgreSQL", "CSS"],
-      category: "fullstack",
-      github: "https://github.com/h4nsoo/merit-club-website",
-      demo: "https://merit-club-tbs.vercel.app",
-    },
-    {
-      id: 2,
-      title: "ToonSah - Manga Reader Website",
-      description:
-        "A manga reading website that fetches data from an external API and displays it in a user-friendly manner",
-      image: mangaapp,
-      technologies: ["React", "CSS"],
-      category: "frontend",
-      github: "https://github.com/h4nsoo/manga-website",
-    },
-    {
-      id: 3,
-      title: "Aalemni Gym",
-      description:
-        "A API for managing a social gym platform, integrating AI powered features, a gamification layer, and social features",
-      technologies: ["Java", "SQLite"],
-      category: "backend-api",
-      github: "https://github.com/h4nsoo/aalemnigym-app",
-      endpoints: [
-        { method: "GET", path: "/api/v1/machines" },
-        { method: "POST", path: "/api/v1/machines/scan" },
-        { method: "PUT", path: "/api/v1/exercises" },
-        { method: "DELETE", path: "/api/v1/users" },
-      ],
-    },
-    {
-      id: 4,
-      title: "FTMF League API",
-      description:
-        "An API for the Tunisian mini foot federation to manage leagues, teams, and match results",
-      technologies: ["Python", "Flask", "PostgreSQL"],
-      category: "backend-api",
-      github: "https://github.com/h4nsoo/ftmf-app",
-      endpoints: [
-        { method: "GET", path: "/api/groups" },
-        { method: "GET", path: "/api/teams" },
-        { method: "POST", path: "/api/fixtures" },
-        { method: "GET", path: "/api/standings" },
-      ],
-    },
-  ], []);
+  const projects = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Merit TBS Website",
+        description: "A responsive student management application",
+        image: meritwebsite,
+        technologies: ["NextJS", "TypeScript", "PostgreSQL", "CSS"],
+        category: "fullstack",
+        github: "https://github.com/h4nsoo/merit-club-website",
+        demo: "https://merit-club-tbs.vercel.app",
+      },
+      {
+        id: 2,
+        title: "ToonSah - Manga Reader Website",
+        description:
+          "A manga reading website that fetches data from an external API and displays it in a user-friendly manner",
+        image: mangaapp,
+        technologies: ["React", "CSS"],
+        category: "frontend",
+        github: "https://github.com/h4nsoo/manga-website",
+      },
+      {
+        id: 3,
+        title: "Aalemni Gym",
+        description:
+          "A API for managing a social gym platform, integrating AI powered features, a gamification layer, and social features",
+        technologies: ["Java", "SQLite"],
+        category: "backend-api",
+        github: "https://github.com/h4nsoo/aalemnigym-app",
+        endpoints: [
+          { method: "GET", path: "/api/v1/machines" },
+          { method: "POST", path: "/api/v1/machines/scan" },
+          { method: "PUT", path: "/api/v1/exercises" },
+          { method: "DELETE", path: "/api/v1/users" },
+        ],
+      },
+      {
+        id: 4,
+        title: "FTMF League API",
+        description:
+          "An API for the Tunisian mini foot federation to manage leagues, teams, and match results",
+        technologies: ["Python", "Flask", "PostgreSQL"],
+        category: "backend-api",
+        github: "https://github.com/h4nsoo/ftmf-app",
+        endpoints: [
+          { method: "GET", path: "/api/groups" },
+          { method: "GET", path: "/api/teams" },
+          { method: "POST", path: "/api/fixtures" },
+          { method: "GET", path: "/api/standings" },
+        ],
+      },
+    ],
+    [],
+  );
 
   useEffect(() => {
     if (activeFilter === "all") {
       setFilteredProjects(projects);
     } else {
       setFilteredProjects(
-        projects.filter((project) => project.category === activeFilter)
+        projects.filter((project) => project.category === activeFilter),
       );
     }
     // Center scroll position when filter changes - defer to next frame to avoid reflow
@@ -79,7 +87,10 @@ const Projects = () => {
         const scrollWidth = sliderRef.current.scrollWidth;
         const clientWidth = sliderRef.current.clientWidth;
         const centerPosition = (scrollWidth - clientWidth) / 2;
-        sliderRef.current.scrollTo({ left: centerPosition, behavior: "smooth" });
+        sliderRef.current.scrollTo({
+          left: centerPosition,
+          behavior: "smooth",
+        });
       }
     });
   }, [activeFilter, projects]);
@@ -205,19 +216,28 @@ const Projects = () => {
 
           <div className="projects-slider" ref={sliderRef}>
             {filteredProjects.map((project, index) => (
-              <div key={project.id} className={`project-card ${project.endpoints ? "api-card" : ""}`}>
+              <div
+                key={project.id}
+                className={`project-card ${project.endpoints ? "api-card" : ""}`}
+              >
                 {project.endpoints ? (
                   <div className="api-preview">
                     <div className="api-preview-header">
                       <span className="api-dot red"></span>
                       <span className="api-dot yellow"></span>
                       <span className="api-dot green"></span>
-                      <span className="api-preview-title">example endpoints</span>
+                      <span className="api-preview-title">
+                        example endpoints
+                      </span>
                     </div>
                     <div className="api-preview-body">
                       {project.endpoints.map((ep, i) => (
                         <div key={i} className="api-endpoint">
-                          <span className={`api-method ${ep.method.toLowerCase()}`}>{ep.method}</span>
+                          <span
+                            className={`api-method ${ep.method.toLowerCase()}`}
+                          >
+                            {ep.method}
+                          </span>
                           <span className="api-path">{ep.path}</span>
                         </div>
                       ))}
