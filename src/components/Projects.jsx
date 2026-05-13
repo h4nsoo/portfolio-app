@@ -9,6 +9,13 @@ import "../styles/Projects.css";
 import OptimizedImage from "./OptimizedImage";
 import meritwebsite from "../assets/merit-website.webp";
 import mangaapp from "../assets/manga-app.webp";
+import { FaGithub } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
+
+const getCategoryLabel = (category) => {
+  const map = { fullstack: "Full Stack", frontend: "Frontend", "backend-api": "API" };
+  return map[category] ?? category;
+};
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -81,7 +88,6 @@ const Projects = () => {
         projects.filter((project) => project.category === activeFilter),
       );
     }
-    // Center scroll position when filter changes - defer to next frame to avoid reflow
     requestAnimationFrame(() => {
       if (sliderRef.current) {
         const scrollWidth = sliderRef.current.scrollWidth;
@@ -95,7 +101,6 @@ const Projects = () => {
     });
   }, [activeFilter, projects]);
 
-  // Update scroll button states - memoized to prevent recreating on each render
   const updateScrollButtons = useCallback(() => {
     if (sliderRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
@@ -104,17 +109,14 @@ const Projects = () => {
     }
   }, []);
 
-  // Center the slider on initial load
   useEffect(() => {
     const slider = sliderRef.current;
     if (slider && filteredProjects.length > 0) {
-      // Use requestAnimationFrame to batch layout reads and avoid forced reflow
       const frameId = requestAnimationFrame(() => {
         const scrollWidth = slider.scrollWidth;
         const clientWidth = slider.clientWidth;
         const centerPosition = (scrollWidth - clientWidth) / 2;
         slider.scrollTo({ left: centerPosition, behavior: "auto" });
-        // Defer updateScrollButtons to next frame to avoid layout thrashing
         requestAnimationFrame(updateScrollButtons);
       });
       return () => cancelAnimationFrame(frameId);
@@ -144,7 +146,7 @@ const Projects = () => {
 
   const scroll = (direction) => {
     if (sliderRef.current) {
-      const scrollAmount = sliderRef.current.offsetWidth * 0.8; // Scroll ~80% of container width
+      const scrollAmount = sliderRef.current.offsetWidth * 0.8;
       const scrollLeft =
         direction === "left"
           ? sliderRef.current.scrollLeft - scrollAmount
@@ -159,38 +161,27 @@ const Projects = () => {
 
   return (
     <div className="projects-section" id="projects">
-      <h2 className="section-title">Projects</h2>
+      <div className="section-header">
+        <h2 className="section-title">Projects</h2>
+        <p className="section-subtitle">A selection of things I&apos;ve built</p>
+      </div>
 
       <div className="projects-wrapper">
         <div className="project-filters">
-          <button
-            className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
-            onClick={() => setActiveFilter("all")}
-          >
-            All
-          </button>
-          <button
-            className={`filter-btn ${activeFilter === "frontend" ? "active" : ""}`}
-            onClick={() => setActiveFilter("frontend")}
-          >
-            Frontend
-          </button>
-          <button
-            className={`filter-btn ${
-              activeFilter === "fullstack" ? "active" : ""
-            }`}
-            onClick={() => setActiveFilter("fullstack")}
-          >
-            Full Stack
-          </button>
-          <button
-            className={`filter-btn ${
-              activeFilter === "backend-api" ? "active" : ""
-            }`}
-            onClick={() => setActiveFilter("backend-api")}
-          >
-            API
-          </button>
+          {[
+            { key: "all", label: "All" },
+            { key: "frontend", label: "Frontend" },
+            { key: "fullstack", label: "Full Stack" },
+            { key: "backend-api", label: "API" },
+          ].map(({ key, label }) => (
+            <button
+              key={key}
+              className={`filter-btn ${activeFilter === key ? "active" : ""}`}
+              onClick={() => setActiveFilter(key)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
         <div className="slider-container">
@@ -201,12 +192,12 @@ const Projects = () => {
             aria-label="Previous projects"
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -218,8 +209,11 @@ const Projects = () => {
             {filteredProjects.map((project, index) => (
               <div
                 key={project.id}
-                className={`project-card ${project.endpoints ? "api-card" : ""}`}
+                className={`project-card ${project.endpoints ? "api-card" : ""} cat-${project.category}`}
+                style={{ "--card-index": index }}
               >
+                <div className="card-accent-bar" />
+
                 {project.endpoints ? (
                   <div className="api-preview">
                     <div className="api-preview-header">
@@ -241,6 +235,10 @@ const Projects = () => {
                           <span className="api-path">{ep.path}</span>
                         </div>
                       ))}
+                      <div className="api-cursor-line">
+                        <span className="api-prompt">$</span>
+                        <span className="api-cursor">▋</span>
+                      </div>
                     </div>
                     <div className="project-links">
                       {project.github && (
@@ -250,8 +248,9 @@ const Projects = () => {
                           rel="noopener noreferrer"
                           className="project-link"
                           aria-label={`View ${project.title} on GitHub`}
+                          title="GitHub"
                         >
-                          GitHub
+                          <FaGithub />
                         </a>
                       )}
                     </div>
@@ -273,8 +272,9 @@ const Projects = () => {
                           rel="noopener noreferrer"
                           className="project-link"
                           aria-label={`View ${project.title} on GitHub`}
+                          title="GitHub"
                         >
-                          GitHub
+                          <FaGithub />
                         </a>
                       )}
                       {project.demo && (
@@ -282,16 +282,21 @@ const Projects = () => {
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="project-link"
+                          className="project-link demo"
                           aria-label={`View ${project.title} demo`}
+                          title="Live Demo"
                         >
-                          Demo
+                          <FiExternalLink />
                         </a>
                       )}
                     </div>
                   </div>
                 )}
+
                 <div className="project-info">
+                  <span className="project-category-badge">
+                    {getCategoryLabel(project.category)}
+                  </span>
                   <h3>{project.title}</h3>
                   <p className="project-description">{project.description}</p>
                   <div className="tech-stack">
@@ -313,12 +318,12 @@ const Projects = () => {
             aria-label="Next projects"
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >

@@ -1,6 +1,6 @@
 
 a{
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 .hero-section {
@@ -58,7 +58,10 @@ a{
 }
 
 .highlight {
-  color: #4169e1;
+  background: linear-gradient(90deg, #4169e1, #7ba4ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 700;
 }
 
@@ -108,27 +111,32 @@ a{
 .hero-cta .btn {
   width: 190px;
   height: 40px;
-  padding: 0; /* horizontal space handled by fixed width */
+  padding: 0;
   justify-content: center;
 }
 
 .btn.primary {
-  background: #4169e1;
+  background: linear-gradient(135deg, #4169e1, #2d54c5);
   color: white;
+  box-shadow: 0 4px 18px rgba(65, 105, 225, 0.35);
 }
 
 .btn.primary:hover {
-  background: #5177e7;
+  background: linear-gradient(135deg, #5177e7, #3a62d4);
+  box-shadow: 0 6px 24px rgba(65, 105, 225, 0.5);
+  transform: translateY(-1px);
 }
 
 .btn.secondary {
   background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .btn.secondary:hover {
-  border-color: white;
+  border-color: rgba(255, 255, 255, 0.7);
+  color: white;
+  transform: translateY(-1px);
 }
 
 /* Responsiveness */

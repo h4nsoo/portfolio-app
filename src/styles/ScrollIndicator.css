@@ -1,63 +1,77 @@
 
 .scroll-indicator {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-  }
-  
-  .scroll-indicator:hover {
-    opacity: 1;
-  }
-  
-  .mouse {
-    width: 25px;
-    height: 40px;
-    border: 2px solid #ffffff;
-    border-radius: 25px;
-    position: relative;
-    margin-bottom: 10px;
-  }
-  
-  .wheel {
-    width: 6px;
-    height: 6px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .arrows {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5px;
-  }
-  
-  .arrows span {
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-bottom: 2px solid #ffffff;
-    border-right: 2px solid #ffffff;
-    transform: rotate(45deg);
-    margin: -6px;
-  }
-  
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
 
+.scroll-indicator:hover {
+  opacity: 1;
+}
 
-  
+.mouse {
+  width: 25px;
+  height: 40px;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  position: relative;
+  margin-bottom: 10px;
+}
 
-  @media (max-width: 768px) {
-    .scroll-indicator {
-      display: none;
-    }
+.wheel {
+  width: 5px;
+  height: 5px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: wheelScroll 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes wheelScroll {
+  0%   { top: 6px;  opacity: 1; }
+  60%  { top: 20px; opacity: 0.2; }
+  100% { top: 6px;  opacity: 0; }
+}
+
+.arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.arrows span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+  transform: rotate(45deg);
+  margin: -4px;
+  opacity: 0;
+  animation: arrowFade 1.6s ease infinite;
+}
+
+.arrows span:nth-child(1) { animation-delay: 0s; }
+.arrows span:nth-child(2) { animation-delay: 0.2s; }
+
+@keyframes arrowFade {
+  0%   { opacity: 0; }
+  50%  { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .scroll-indicator {
+    display: none;
   }
+}

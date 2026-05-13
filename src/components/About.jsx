@@ -1,19 +1,41 @@
 import React, { useState, useMemo } from "react";
 import { createPortal } from "react-dom";
 import "../styles/About.css";
-import OptimizedImage from "./OptimizedImage";
-import SeeMoreButton from "./SeeMoreButton";
+import LogoLoop from "./LogoLoop";
+import TrueFocus from "./TrueFocus";
+import {
+  SiTypescript, SiNextdotjs, SiExpress, SiMongodb, SiPostgresql,
+  SiGit, SiFigma, SiPython,
+  SiHtml5, SiCss, SiC, SiGo, SiNodedotjs, SiDocker, SiLinux,
+} from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 
-import mongodbIcon from "../assets/mongodb-icon.png";
-import gitIcon from "../assets/git-icon.png";
-import figmaIcon from "../assets/figma-logo.png";
-import pythonIcon from "../assets/python-logo.png";
+const MAIN_SKILL_LOGOS = [
+  { node: <SiTypescript />, title: "TypeScript" },
+  { node: <SiNextdotjs />, title: "Next.js" },
+  { node: <SiExpress />, title: "Express.js" },
+  { node: <SiMongodb />, title: "MongoDB" },
+  { node: <SiPostgresql />, title: "PostgreSQL" },
+  { node: <SiGit />, title: "Git" },
+  { node: <SiFigma />, title: "Figma" },
+  { node: <SiPython />, title: "Python" },
+];
+
+const EXTRA_SKILL_LOGOS = [
+  { node: <SiHtml5 />, title: "HTML5" },
+  { node: <SiCss />, title: "CSS3" },
+  { node: <SiC />, title: "C" },
+  { node: <FaJava />, title: "Java" },
+  { node: <SiGo />, title: "Go" },
+  { node: <SiNodedotjs />, title: "Node.js" },
+  { node: <SiDocker />, title: "Docker" },
+  { node: <SiLinux />, title: "Linux" },
+];
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("education");
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [showAllSkills, setShowAllSkills] = useState(false);
 
   const timelineData = useMemo(() => ({
     education: [
@@ -94,92 +116,6 @@ const About = () => {
     }
   };
 
-  const mainSkills = useMemo(() => [
-    {
-      name: "TypeScript",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-      description: "JavaScript but better",
-    },
-    {
-      name: "Next.js",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-      description: "A React framework",
-    },
-    {
-      name: "Express.js",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-      description: "A Node.js web framework",
-    },
-    {
-      name: "MongoDB",
-      icon: mongodbIcon,
-      description: "A NoSQL database",
-    },
-    {
-      name: "PostgreSQL",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-      description: "A relational database",
-    },
-    {
-      name: "Git",
-      icon: gitIcon,
-      description: "Version control",
-    },
-    {
-      name: "Figma",
-      icon: figmaIcon,
-      description: "Design tool",
-    },
-    {
-      name: "Python",
-      icon: pythonIcon,
-      description: "A programming language",
-    },
-  ], []);
-
-  const extraSkills = useMemo(() => [
-    {
-      name: "HTML5",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-      description: "Markup language",
-    },
-    {
-      name: "CSS3",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-      description: "Styling language",
-    },
-    {
-      name: "C",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
-      description: "Low-level language",
-    },
-    {
-      name: "Java",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-      description: "OOP  language",
-    },
-    {
-      name: "Go",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
-      description: "Highly efficient language",
-    },
-    {
-      name: "Node.js",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-      description: "JavaScript runtime",
-    },
-    {
-      name: "Docker",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-      description: "Containerization",
-    },
-    {
-      name: "Linux",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-      description: "Operating system",
-    },
-  ], []);
-
   return (
     <div id="about" className="about-section">
       <h2 className="section-title">About Me</h2>
@@ -256,31 +192,38 @@ const About = () => {
       </div>
 
       <div className="skills-section">
-        <div className="skills-header-row">
-          <h2 className="tech-arsenal">Tech Arsenal</h2>
-          <SeeMoreButton
-            expanded={showAllSkills}
-            onClick={() => setShowAllSkills((v) => !v)}
+        <TrueFocus
+          sentence="Tech Arsenal"
+          manualMode={false}
+          blurAmount={2.5}
+          borderColor="#7ba4ff"
+          glowColor="rgba(65, 105, 225, 0.6)"
+          animationDuration={0.6}
+          pauseBetweenAnimations={2}
+        />
+        <div className="logoloop-container">
+          <LogoLoop
+            logos={MAIN_SKILL_LOGOS}
+            speed={55}
+            direction="left"
+            logoHeight={40}
+            gap={52}
+            hoverSpeed={0}
+            scaleOnHover
+            ariaLabel="Core technologies"
           />
         </div>
-        <div className="skills-grid">
-          {(showAllSkills ? mainSkills.concat(extraSkills) : mainSkills).map(
-            (skill, index) => (
-              <div key={skill.name} className="skill-item">
-                <div className="skill-header">
-                  <OptimizedImage
-                    src={skill.icon}
-                    alt={skill.name}
-                    width="32"
-                    height="32"
-                    loading={index < 4 ? "eager" : "lazy"}
-                  />
-                  <p className="skill-name">{skill.name}</p>
-                </div>
-                <p className="skill-description">{skill.description}</p>
-              </div>
-            )
-          )}
+        <div className="logoloop-container">
+          <LogoLoop
+            logos={EXTRA_SKILL_LOGOS}
+            speed={45}
+            direction="right"
+            logoHeight={40}
+            gap={52}
+            hoverSpeed={0}
+            scaleOnHover
+            ariaLabel="Additional technologies"
+          />
         </div>
       </div>
 
