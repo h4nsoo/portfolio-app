@@ -1,23 +1,26 @@
 import React from "react";
 import "../styles/DownloadButton.css";
 
-const DownloadButton = React.memo(({ href = "/resume.pdf", children = "Download" }) => {
+const DownloadButton = React.memo(({ href = "/resume.pdf" }) => {
   return (
-    <a className="download-btn button" href={href} download target="_blank" rel="noopener noreferrer">
-      <span className="button__text">{children}</span>
-      <span className="button__icon" aria-hidden="true">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 35 35"
-          className="svg"
-          focusable="false"
-          aria-hidden="true"
-        >
-          <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z" />
-          <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z" />
-          <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z" />
+    <a className="dl-btn" href={href} download target="_blank" rel="noopener noreferrer">
+      <div className="dl-btn__face">
+        <svg viewBox="0 0 24 24" width={18} height={18} stroke="currentColor" strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1={16} y1={13} x2={8} y2={13} />
+          <line x1={16} y1={17} x2={8} y2={17} />
+          <polyline points="10 9 9 9 8 9" />
         </svg>
-      </span>
+        Download CV
+      </div>
+      <div className="dl-btn__arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width={22} height={22} stroke="currentColor" strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1={12} y1={15} x2={12} y2={3} />
+        </svg>
+      </div>
     </a>
   );
 });

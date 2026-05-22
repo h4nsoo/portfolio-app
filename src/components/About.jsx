@@ -141,48 +141,64 @@ const About = () => {
         </div>
 
         <div className="timeline-container">
-          <div
-            className={`timeline-section ${
-              activeTab === "education" ? "active" : ""
-            }`}
-          >
-            <div className="timeline">
-              {timelineData.education.map((item) => (
-                <div
-                  key={item.id}
-                  className="timeline-item"
-                  onClick={() => openModal(item)}
-                >
-                  <div className="timeline-dot"></div>
-                  <div className="timeline-content clickable">
-                    <h4>{item.title}</h4>
-                    <p className="timeline-location">{item.location}</p>
-                    <p className="timeline-date">{item.date}</p>
-                    <span className="view-details">Click for details</span>
+          <div className={`timeline-section ${activeTab === "education" ? "active" : ""}`}>
+            <div className="timeline-v2">
+              {timelineData.education.map((item, index) => (
+                <div key={item.id} className="tl-item" style={{ "--index": index }} onClick={() => openModal(item)}>
+                  <div className="tl-spine">
+                    <div className="tl-dot" />
+                    <div className="tl-line" />
+                  </div>
+                  <div className="tl-card">
+                    <div className="tl-card-top">
+                      <div className="tl-icon-wrap">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                          <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                      </div>
+                      <span className="tl-date">{item.date}</span>
+                    </div>
+                    <h4 className="tl-title">{item.title}</h4>
+                    {item.location && <p className="tl-sub">{item.location}</p>}
+                    <div className="tl-cta">
+                      <span>View details</span>
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div
-            className={`timeline-section ${
-              activeTab === "extracurricular" ? "active" : ""
-            }`}
-          >
-            <div className="timeline">
-              {timelineData.extracurricular.map((item) => (
-                <div
-                  key={item.id}
-                  className="timeline-item"
-                  onClick={() => openModal(item)}
-                >
-                  <div className="timeline-dot"></div>
-                  <div className="timeline-content clickable">
-                    <h4>{item.title}</h4>
-                    <p className="timeline-role">{item.role}</p>
-                    <p className="timeline-date">{item.date}</p>
-                    <span className="view-details">Click for details</span>
+          <div className={`timeline-section ${activeTab === "extracurricular" ? "active" : ""}`}>
+            <div className="timeline-v2">
+              {timelineData.extracurricular.map((item, index) => (
+                <div key={item.id} className="tl-item" style={{ "--index": index }} onClick={() => openModal(item)}>
+                  <div className="tl-spine">
+                    <div className="tl-dot" />
+                    <div className="tl-line" />
+                  </div>
+                  <div className="tl-card">
+                    <div className="tl-card-top">
+                      <div className="tl-icon-wrap">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                      </div>
+                      <span className="tl-date">{item.date}</span>
+                    </div>
+                    <h4 className="tl-title">{item.title}</h4>
+                    {item.role && <p className="tl-sub">{item.role}</p>}
+                    <div className="tl-cta">
+                      <span>View details</span>
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               ))}

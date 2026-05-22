@@ -29,12 +29,12 @@ const Projects = () => {
       {
         id: 1,
         title: "Merit TBS Website",
-        description: "A responsive student management application",
+        description: "A full-stack web application for Merit Club TBS that serves as the club’s public face while streamlining internal operations",
         image: meritwebsite,
-        technologies: ["NextJS", "TypeScript", "PostgreSQL", "CSS"],
+        technologies: ["NextJS", "TypeScript", "Supabase", "CSS"],
         category: "fullstack",
         github: "https://github.com/h4nsoo/merit-club-website",
-        demo: "https://merit-club-tbs.vercel.app",
+        demo: "https://merit-tbs.tech",
       },
       {
         id: 2,
@@ -45,13 +45,14 @@ const Projects = () => {
         technologies: ["React", "CSS"],
         category: "frontend",
         github: "https://github.com/h4nsoo/manga-website",
+        demo: "https://toonsah.vercel.app",
       },
       {
         id: 3,
         title: "Aalemni Gym",
         description:
           "A API for managing a social gym platform, integrating AI powered features, a gamification layer, and social features",
-        technologies: ["Java", "SQLite"],
+        technologies: ["Go", "Fiber", "PostgreSQL"],
         category: "backend-api",
         github: "https://github.com/h4nsoo/aalemnigym-app",
         endpoints: [
@@ -66,7 +67,7 @@ const Projects = () => {
         title: "FTMF League API",
         description:
           "An API for the Tunisian mini foot federation to manage leagues, teams, and match results",
-        technologies: ["Python", "Flask", "PostgreSQL"],
+        technologies: ["Python", "FastAPI", "SQLite"],
         category: "backend-api",
         github: "https://github.com/h4nsoo/ftmf-app",
         endpoints: [
@@ -173,6 +174,7 @@ const Projects = () => {
             { key: "frontend", label: "Frontend" },
             { key: "fullstack", label: "Full Stack" },
             { key: "backend-api", label: "API" },
+            { key: "ai-data", label: "AI & Data" },
           ].map(({ key, label }) => (
             <button
               key={key}

@@ -47,22 +47,26 @@ const StarryBackground = () => {
       mouseRef.current.x = e.clientX / width;
       mouseRef.current.y = e.clientY / height;
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // Resize
+    // Resize — debounced to avoid thrashing on every pixel
+    let resizeTimer = null;
     const handleResize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      starsRef.current.forEach((star) => {
-        star.x = Math.random() * width;
-        star.y = Math.random() * height;
-        star.baseX = star.x;
-        star.baseY = star.y;
-      });
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        starsRef.current.forEach((star) => {
+          star.x = Math.random() * width;
+          star.y = Math.random() * height;
+          star.baseX = star.x;
+          star.baseY = star.y;
+        });
+      }, 150);
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     // Animation
     function animate() {
@@ -94,24 +98,26 @@ const StarryBackground = () => {
         (mouseRef.current.x - lerpedMouse.current.x) * 0.12;
       lerpedMouse.current.y +=
         (mouseRef.current.y - lerpedMouse.current.y) * 0.12;
+
+      // Cache per-frame constants outside the loop
+      const now = performance.now();
+      const lx = lerpedMouse.current.x;
+      const ly = lerpedMouse.current.y;
+      ctx.globalAlpha = 0.85; // constant for all stars — set once
+
       for (let star of starsRef.current) {
-        // Parallax offset (stronger effect)
-        const parallaxX =
-          (lerpedMouse.current.x - 0.5) * 180 * (star.radius / 2);
-        const parallaxY =
-          (lerpedMouse.current.y - 0.5) * 180 * (star.radius / 2);
+        // Parallax offset
+        const parallaxX = (lx - 0.5) * 180 * (star.radius / 2);
+        const parallaxY = (ly - 0.5) * 180 * (star.radius / 2);
         // Floating movement
-        star.baseX +=
-          Math.cos(performance.now() * 0.0007 + star.twinkle) * star.speed;
-        star.baseY +=
-          Math.sin(performance.now() * 0.0009 + star.twinkle) * star.speed;
+        star.baseX += Math.cos(now * 0.0007 + star.twinkle) * star.speed;
+        star.baseY += Math.sin(now * 0.0009 + star.twinkle) * star.speed;
         // Wrap around screen
         if (star.baseX < 0) star.baseX = width;
         if (star.baseX > width) star.baseX = 0;
         if (star.baseY < 0) star.baseY = height;
         if (star.baseY > height) star.baseY = 0;
-        // Draw
-        ctx.save();
+        // Draw — no save/restore needed, only fillStyle changes per star
         ctx.beginPath();
         ctx.arc(
           star.baseX + parallaxX,
@@ -121,10 +127,10 @@ const StarryBackground = () => {
           Math.PI * 2
         );
         ctx.fillStyle = star.color;
-        ctx.globalAlpha = 0.85;
         ctx.fill();
-        ctx.restore();
       }
+
+      ctx.globalAlpha = 1; // reset after batch
       animationRef.current = requestAnimationFrame(animate);
     }
     animate();
@@ -132,6 +138,7 @@ const StarryBackground = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimer);
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, []);
