@@ -7,6 +7,7 @@ import StructuredData from "./components/StructuredData";
 import "simplebar-react/dist/simplebar.min.css";
 import StarryBackground from "./components/StarryBackground";
 import "./styles/StarryBackground.css";
+import IntroScreen from "./components/IntroScreen";
 
 // Lazy load below-the-fold components to reduce initial bundle size
 const About = React.lazy(() => import("./components/About"));
@@ -42,6 +43,7 @@ const LoadingFallback = () => (
 const App = () => {
   return (
     <HelmetProvider>
+      <IntroScreen />
       <StructuredData />
       <StarryBackground />
       <Navbar />

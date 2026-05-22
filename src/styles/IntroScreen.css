@@ -1,0 +1,110 @@
+/* ============================================================
+   Intro / Splash Screen
+   ============================================================ */
+
+/* ── Overlay ── */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  /* Semi-opaque so backdrop-filter can show the blurred starry canvas beneath */
+  background: rgba(8, 13, 30, 0.82);
+  backdrop-filter: blur(28px) contrast(1.4) brightness(0.55) saturate(1.6);
+  -webkit-backdrop-filter: blur(28px) contrast(1.4) brightness(0.55) saturate(1.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.72s ease;
+}
+
+.intro-screen.is-leaving {
+  opacity: 0;
+}
+
+/* ── Word Stage ──
+   overflow:hidden clips words above/below so only the in-view portion
+   is visible — creates the "masked curtain reveal" look. */
+.intro-stage {
+  position: relative;
+  overflow: hidden;
+  /* height = line-height of the words (font-size is inherited) */
+  height: 1.18em;
+  font-size: clamp(3rem, 8.5vw, 6.5rem);
+  width: 100%;
+  max-width: 820px;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* ── Individual Words ──
+   All stack at the same absolute position inside .intro-stage.
+   The keyframe handles enter (slide up from below) → hold → exit (slide up above). */
+.intro-word {
+  position: absolute;
+  inset: 0;                   /* fills the stage */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  line-height: 1.18;
+  transform: translateY(110%); /* starts below — hidden by overflow:hidden */
+  animation: wordSlide var(--word-ms) cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation-delay: calc(var(--i) * var(--stagger-ms));
+}
+
+/* Script-specific overrides for better rendering */
+.intro-word[lang="ar"] {
+  letter-spacing: 0;
+  font-family: "Segoe UI", Tahoma, "Arabic Typesetting", system-ui, sans-serif;
+}
+.intro-word[lang="ja"],
+.intro-word[lang="zh"] {
+  letter-spacing: 0;
+  font-family: system-ui, "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+
+/* Slide up in → hold → fade out with a gentle upward drift */
+@keyframes wordSlide {
+  0%   { transform: translateY(105%); opacity: 0;   }
+  18%  { transform: translateY(0);    opacity: 1;   }
+  74%  { transform: translateY(0);    opacity: 1;   }
+  100% { transform: translateY(-10%); opacity: 0;   }
+}
+
+/* ── Progress Bar ── */
+.intro-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.intro-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    rgba(65, 105, 225, 0.3),
+    rgba(123, 164, 255, 0.7)
+  );
+  animation: progressFill var(--prog-ms) linear forwards;
+}
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .intro-stage {
+    font-size: clamp(2.6rem, 12vw, 3.5rem);
+    padding: 0 1.5rem;
+  }
+}

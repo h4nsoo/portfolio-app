@@ -37,32 +37,32 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  margin: 2.5rem 0;
+  margin: 1.5rem 0;
 }
 
 .tab-buttons {
   margin: 0 auto;
   display: flex;
   gap: 0;
-  margin-bottom: 1.5rem;
-  margin-top: -1rem;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 12px;
-  padding: 4px;
+  margin-bottom: 1.1rem;
+  margin-top: -0.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 9px;
+  padding: 3px;
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .tab-button {
-  padding: 0.6rem 1.6rem;
+  padding: 0.33rem 1.05rem;
   background-color: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.42);
+  border-radius: 7px;
   cursor: pointer;
-  transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-  font-size: 0.9rem;
+  transition: color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+  font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.25px;
   position: relative;
 }
 
@@ -71,15 +71,15 @@
 }
 
 .tab-button.active {
-  background: linear-gradient(135deg, rgba(65, 105, 225, 0.3), rgba(65, 105, 225, 0.15));
+  background: linear-gradient(135deg, rgba(65, 105, 225, 0.28), rgba(65, 105, 225, 0.12));
   color: #fff;
-  box-shadow: 0 2px 12px rgba(65, 105, 225, 0.2);
+  box-shadow: 0 1px 8px rgba(65, 105, 225, 0.18);
 }
 
 .timeline-container {
   position: relative;
   min-height: 200px;
-  margin-top: 20px;
+  margin-top: 6px;
 }
 
 .timeline-section {
@@ -100,13 +100,13 @@
 .timeline-v2 {
   display: flex;
   flex-direction: column;
-  padding: 0.25rem 0.1rem;
+  padding: 0.1rem 0.05rem;
 }
 
 .tl-item {
   display: flex;
-  gap: 1rem;
-  padding-bottom: 1.5rem;
+  gap: 0.85rem;
+  padding-bottom: 0.85rem;
   cursor: pointer;
   animation: tlFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
   animation-delay: calc(var(--index, 0) * 90ms);
@@ -164,8 +164,8 @@
   flex: 1;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  padding: 1rem 1.25rem 0.9rem;
+  border-radius: 12px;
+  padding: 0.65rem 1rem 0.6rem;
   position: relative;
   overflow: hidden;
   transition:
@@ -199,14 +199,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .tl-icon-wrap {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   background: rgba(65, 105, 225, 0.1);
   border: 1px solid rgba(65, 105, 225, 0.18);
   display: flex;
@@ -237,17 +237,17 @@
 }
 
 .tl-title {
-  font-size: 0.97rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #fff;
-  margin: 0 0 0.28rem;
+  margin: 0 0 0.18rem;
   line-height: 1.35;
 }
 
 .tl-sub {
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   color: rgba(255, 255, 255, 0.45);
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.35rem;
 }
 
 .tl-cta {
